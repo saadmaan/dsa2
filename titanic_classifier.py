@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 ###### Path ########################################################################
 from source.util_feature import save
 
-config_file  = os.path.basename(__file__)
+config_file  = "titanic_classifier.py"
 # config_file      = "titanic_classifier.py"   ### name of file which contains data configuration
 
 print( os.getcwd())
@@ -134,7 +134,7 @@ def titanic_lightgbm(path_model_out="") :
             {'uri': 'source/preprocessors.py::pd_colcross',             'pars': {}, 'cols_family': 'colcross',   'cols_out': 'colcross_pair',  'type': 'cross'},
 
             #### Example of Custom processor
-            {'uri': 'titanic_classifier.py::pd_colnum_quantile_norm',   'pars': {}, 'cols_family': 'colnum',   'cols_out': 'colnum_quantile_norm',  'type': '' },          
+            {'uri': 'source/preprocessors.py::pd_colnum_quantile_norm',   'pars': {}, 'cols_family': 'colnum',   'cols_out': 'colnum_quantile_norm',  'type': '' },          
           
         ],
                }
@@ -180,8 +180,10 @@ def titanic_lightgbm(path_model_out="") :
 ########## Profile data #############################################################
 def data_profile(path_data_train="", path_model="", n_sample= 5000):
    from source.run_feature_profile import run_profile
+   a = titanic_lightgbm()
+   path_data_train = a['global_pars']['path_data_train']
    run_profile(path_data   = path_data_train,
-               path_output = path_model + "/profile/",
+               path_output = "data/out/ztmp/" + "/profile/",
                n_sample    = n_sample,
               )
 
@@ -190,29 +192,34 @@ def data_profile(path_data_train="", path_model="", n_sample= 5000):
 ########## Preprocess #############################################################
 ### def preprocess(config='', nsample=1000):
 from core_run import preprocess
+aa = 0
 
-"""
 def preprocess(config=None, nsample=None):
     config_name  = config  if config is not None else config_default
     mdict        = globals()[config_name]()
     m            = mdict['global_pars']
-    print(mdict)
-
+    #print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<???????????????????????????????????????????????")
+    #print(config_name)
+    #print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<" +hj+"<???????????????????????????????????????????????")
+    n = nsample if nsample is not None else m['n_sample']
+    print(n)
+    n = int(float(n))
     from source import run_preprocess
     run_preprocess.run_preprocess(config_name   =  config_name,
                                   config_path   =  m['config_path'],
-                                  n_sample      =  nsample if nsample is not None else m['n_sample'],
+                                  n_sample      =  n,
 
                                   ### Optonal
-                                  mode          =  'run_preprocess')
-"""
+                                  mode          =  'run_preprocess',
+                                  model_dict=None)
+
 
 
 
 ##################################################################################
 ########## Train #################################################################
 from core_run import train
-"""
+
 def train(config=None, nsample=None):
 
     config_name  = config  if config is not None else config_default
@@ -225,7 +232,7 @@ def train(config=None, nsample=None):
                         config_path       =  m['config_path'],
                         n_sample          =  nsample if nsample is not None else m['n_sample'],
                         )
-"""
+
 
 
 
@@ -242,7 +249,7 @@ def check():
 # predict(config='', nsample=10000)
 from core_run import predict
 
-"""
+
 def predict(config=None, nsample=None):
     config_name  = config  if config is not None else config_default
     mdict        = globals()[config_name]()
@@ -259,7 +266,7 @@ def predict(config=None, nsample=None):
                               path_output = m['path_pred_output'],
                               model_dict  = None
                               )
-"""
+
 
 
 ###########################################################################################################

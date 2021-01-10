@@ -41,8 +41,8 @@ def run_profile(path_data=None,  path_output="data/out/ztmp/", n_sample=5000):
         path_train_X   = path_data
         path_train_y   = ""
     else :
-        path_train_X   = path_data   + "/features*"
-        path_train_y   = path_data   + "/target*"
+        path_train_X   = path_data   + "/features.csv"
+        path_train_y   = path_data   + "/target.csv"
 
     try :
         log("#### load input column family  ###################################################")

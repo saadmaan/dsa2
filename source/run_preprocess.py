@@ -75,6 +75,9 @@ def load_features(name, path):
 
 def model_dict_load(model_dict, config_path, config_name, verbose=True):
     if model_dict is None :
+       uri_name=config_path + "::" + config_name
+       #aa+=1
+      # print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr  "+aa+"   ttttttttttttttttttttttttttttttt")
        log("#### Model Params Dynamic loading  ###############################################")
        model_dict_fun = load_function_uri(uri_name=config_path + "::" + config_name)
        model_dict     = model_dict_fun()   ### params
